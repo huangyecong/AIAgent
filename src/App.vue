@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import DeepseekApiTest from './components/DeepseekApiTest.vue'
 </script>
 
 <template>
-  <HelloWorld msg="HelloWorld" />
+  <DeepseekApiTest msg="DeepseekApiTest" />
 </template>
 
 <style scoped>

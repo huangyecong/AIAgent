@@ -2,28 +2,39 @@
 import { ref } from 'vue'
 import { chatWithDeepseek } from '../services/deepseek'
 
-const message = ref('')
-const response = ref('')
-const loading = ref(false)
-const error = ref('')
+const message = ref('') // 用户输入的消息
+const response = ref('') // AI的响应内容
+const loading = ref(false) // 加载状态
+const error = ref('') // 错误信息
 
 async function handleSubmit() {
+  // 空消息检查
   if (!message.value.trim()) return
 
+  // 设置加载状态
   loading.value = true
   error.value = ''
   try {
+    // 调用API
+    /** Deepseek API的对话格式要求（官网文档地址：https://api-docs.deepseek.com/zh-cn/）
+    数组中的每个对象都是一个消息（ChatMessage类型），包含两个属性：
+    - role ：表示消息的发送者角色
+    - content ：表示消息的具体内容
+    **/
     const result = await chatWithDeepseek([
       { role: 'system', content: 'You are a helpful assistant.' },
       { role: 'user', content: message.value },
     ])
+    // 设置响应
     response.value = result
   } catch (err) {
+    // 错误处理
     console.error('发送消息失败:', err)
     error.value =
       err instanceof Error ? err.message : '发送消息失败，请稍后重试'
     response.value = ''
   } finally {
+    // 重置加载状态
     loading.value = false
   }
 }

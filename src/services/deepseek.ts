@@ -1,5 +1,6 @@
 import type { ChatMessage } from '../types'
 
+// Deepseek 的 API 调用 URL
 const API_URL = 'https://api.deepseek.com/chat/completions'
 
 export async function chatWithDeepseek(messages: ChatMessage[]) {
